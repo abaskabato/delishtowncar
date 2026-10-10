@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
 import { Badge } from "./components/Logo";
+import VehicleArt from "./components/VehicleArt";
 
 const FAQ: { q: string; a: string }[] = [
   {
@@ -60,6 +61,9 @@ export default function Home() {
               const v = VEHICLES[id];
               return (
                 <article key={id} className="vehicle-card">
+                  <div className="vehicle-art">
+                    <VehicleArt vehicle={id} />
+                  </div>
                   <div className="vehicle-head">
                     <h3>{v.name}</h3>
                     <span className="price">{formatMoney(v.priceCents)}</span>

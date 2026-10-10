@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import VehicleArt from "../components/VehicleArt";
 import { DIRECTIONS, TEXTS_ENABLED, type Direction, type VEHICLES, type VehicleId } from "@/lib/config";
 
 type Vehicles = typeof VEHICLES;
@@ -172,6 +173,7 @@ export default function BookingForm(props: {
               {(Object.keys(vehicles) as VehicleId[]).map((id) => (
                 <label key={id} className={`choice ${form.vehicle === id ? "selected" : ""}`}>
                   <input type="radio" name="vehicle" id={`vehicle-${id}`} checked={form.vehicle === id} onChange={() => chooseVehicle(id)} />
+                  <VehicleArt vehicle={id} className="choice-art" />
                   <span className="choice-title">{vehicles[id].name}</span>
                   <span className="choice-meta">Up to {vehicles[id].maxPassengers} passengers</span>
                   <span className="choice-price">{money(vehicles[id].priceCents)}</span>
