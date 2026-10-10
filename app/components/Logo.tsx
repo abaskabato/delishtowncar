@@ -105,11 +105,12 @@ export function HeaderLogo() {
         <Sedan fill={gold} hub="#0d0b0a" x={-50} y={-36} width={100} />
         <text y="30" fontFamily="var(--font-script), cursive" fontSize="40" fill={gold} textAnchor="middle">Delish</text>
       </g>
-      <text x="104" y="50" fontFamily="var(--font-display), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7" fill={gold}>
+      {/* Wordmark colors come from the theme (see .logo-word in globals.css). */}
+      <text className="logo-word" x="104" y="50" fontFamily="var(--font-display), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7">
         DELISH
       </text>
-      <line x1="106" y1="60" x2="372" y2="60" stroke="#8e1b26" strokeWidth="1.2" />
-      <text x="106" y="80" fontFamily="var(--font-display), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2" fill="#e6cc86">
+      <line className="logo-rule" x1="106" y1="60" x2="372" y2="60" strokeWidth="1.2" />
+      <text className="logo-sub" x="106" y="80" fontFamily="var(--font-display), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2">
         TOWN CAR · SEATTLE
       </text>
     </svg>

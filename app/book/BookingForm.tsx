@@ -223,7 +223,7 @@ export default function BookingForm(props: {
           </div>
 
           {error && <p className="error" role="alert">{error}</p>}
-          <button className="btn btn-gold btn-block" type="submit">Continue</button>
+          <button className="btn btn-primary btn-block" type="submit">Continue</button>
         </form>
       )}
 
@@ -256,7 +256,7 @@ export default function BookingForm(props: {
           {error && <p className="error" role="alert">{error}</p>}
           <div className="button-row">
             <button type="button" className="btn btn-outline" onClick={() => { setError(""); setStep(0); }}>Back</button>
-            <button className="btn btn-gold" type="submit">Review &amp; pay</button>
+            <button className="btn btn-primary" type="submit">Review &amp; pay</button>
           </div>
         </form>
       )}
@@ -285,7 +285,7 @@ export default function BookingForm(props: {
           {error && <p className="error" role="alert">{error}</p>}
           <div className="button-row">
             <button type="button" className="btn btn-outline" onClick={() => { setError(""); setStep(1); }} disabled={busy}>Back</button>
-            <button className="btn btn-gold" type="submit" disabled={!cardReady || busy}>
+            <button className="btn btn-primary" type="submit" disabled={!cardReady || busy}>
               {busy ? "Paying…" : `Pay ${money(vehicle.priceCents)} and book`}
             </button>
           </div>

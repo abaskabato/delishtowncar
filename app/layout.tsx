@@ -3,6 +3,7 @@ import { Cinzel, Jost, Pinyon_Script } from "next/font/google";
 import Link from "next/link";
 import { BUSINESS } from "@/lib/config";
 import { HeaderLogo } from "./components/Logo";
+import ThemeToggle from "./components/ThemeToggle";
 import "./globals.css";
 
 const display = Cinzel({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display" });
@@ -14,9 +15,15 @@ export const metadata: Metadata = {
   description: "Flat-rate private car between Seattle House and Sea-Tac Airport. Sedan $110, Luxury SUV $135. Book and pay online.",
 };
 
+const THEME_SCRIPT = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Apply a saved light/night choice before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <header className="site-header">
           <div className="container header-row">
@@ -25,7 +32,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </Link>
             <nav className="header-nav">
               <a href={`tel:${BUSINESS.phoneE164}`} className="header-phone">{BUSINESS.phone}</a>
-              <Link href="/book" className="btn btn-gold btn-small">Book a ride</Link>
+              <ThemeToggle />
+              <Link href="/book" className="btn btn-primary btn-small">Book a ride</Link>
             </nav>
           </div>
         </header>

@@ -47,7 +47,7 @@ export default function CancelButton({ id, token, refundLabel }: { id: string; t
       {error && <p className="error" role="alert">{error}</p>}
       <div className="button-row">
         <button className="btn btn-outline" onClick={() => setConfirming(false)} disabled={busy}>Keep my ride</button>
-        <button className="btn btn-wine" onClick={cancel} disabled={busy}>{busy ? "Cancelling…" : "Yes, cancel"}</button>
+        <button className="btn btn-danger" onClick={cancel} disabled={busy}>{busy ? "Cancelling…" : "Yes, cancel"}</button>
       </div>
     </div>
   );

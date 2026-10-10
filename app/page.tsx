@@ -42,7 +42,7 @@ export default function Home() {
               A professional driver, a clean luxury vehicle and one flat price each way. Book in a few minutes and pay online.
             </p>
             <div className="hero-actions">
-              <Link href="/book" className="btn btn-gold">Book your ride</Link>
+              <Link href="/book" className="btn btn-light">Book your ride</Link>
               <span className="hero-from">Sedan from <strong>{formatMoney(VEHICLES.sedan.priceCents)}</strong></span>
             </div>
           </div>
