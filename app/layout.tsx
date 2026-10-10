@@ -3,6 +3,7 @@ import { Cinzel, Inter, Pinyon_Script, Plus_Jakarta_Sans } from "next/font/googl
 import Link from "next/link";
 import { BUSINESS } from "@/lib/config";
 import { HeaderLogo } from "./components/Logo";
+import TawkChat from "./components/TawkChat";
 import ThemeToggle from "./components/ThemeToggle";
 import "./globals.css";
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             </div>
           </div>
         </footer>
+        <TawkChat />
       </body>
     </html>
   );

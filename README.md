@@ -6,6 +6,7 @@ Booking website for Delish Town Car: flat-rate private car service between Seatt
 - Customers pay by card through **Square** when they book.
 - Cancellation link in every confirmation refunds automatically: full refund more than 24 hours before pickup, 50% within 24 hours, no refund after pickup time (no-show).
 - Email alerts (Resend) go to the customer and the owner for every booking and cancellation.
+- Live chat (tawk.to) shows once `NEXT_PUBLIC_TAWK_PROPERTY_ID` and `NEXT_PUBLIC_TAWK_WIDGET_ID` are set; owners reply from the tawk.to app.
 - Text alerts (Twilio) are built but switched off (`TEXTS_ENABLED` in `lib/config.ts`) until US texting registration is done.
 
 Car photos in `public/cars/` are representative stock photos from Pexels (free for commercial use): [sedan](https://www.pexels.com/photo/a-mercedes-benz-s-class-18369292/), [SUV](https://www.pexels.com/photo/black-cadillac-escalade-parked-under-trees-in-fire-zone-23319054/). Replace them with photos of the real cars when available.

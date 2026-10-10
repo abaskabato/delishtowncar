@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BUSINESS, TEXTS_ENABLED } from "@/lib/config";
+import { CHAT_ENABLED } from "../components/TawkChat";
 
 export const metadata: Metadata = { title: "Policies | Delish Town Car" };
 
@@ -31,7 +32,7 @@ export default function Policies() {
         <h2 id="privacy">Privacy</h2>
         <p>
           When you book, we collect your name, phone number, email, trip details and flight number. We use them only to run your
-          ride and contact you about it. Card details are handled by Square and never stored by us.{TEXTS_ENABLED && " If you opt in to texts, we send booking and ride updates; reply STOP to opt out."} We share your name and pickup details only with your driver. We
+          ride and contact you about it. Card details are handled by Square and never stored by us.{TEXTS_ENABLED && " If you opt in to texts, we send booking and ride updates; reply STOP to opt out."} {CHAT_ENABLED && " Our website chat is run by tawk.to; messages you send there are stored by tawk.to so we can reply."} We share your name and pickup details only with your driver. We
           don&apos;t sell your information. To have your data deleted, email {BUSINESS.email}.
         </p>
 
