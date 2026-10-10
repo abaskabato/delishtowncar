@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
+import HeroLogoWatcher from "./components/HeroLogoWatcher";
 import { Badge } from "./components/Logo";
 import Image from "next/image";
 
@@ -37,8 +38,9 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <div className="hero-brand">
+            <div className="hero-brand" id="hero-brand">
               <Badge id="hero" size={150} />
+              <HeroLogoWatcher targetId="hero-brand" />
               <p className="pill">Seattle House ⇄ Sea-Tac Airport</p>
             </div>
             <h1>Your private car to Sea-Tac, from your front door.</h1>

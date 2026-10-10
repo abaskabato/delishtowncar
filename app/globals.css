@@ -131,6 +131,9 @@ p { margin: 0; }
 .site-header { border-bottom: 1px solid var(--line); background: var(--header-bg); position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.4) blur(12px); }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
 .header-row > a svg { display: block; width: auto; }
+/* Home page: hide the header logo while the big hero badge is on screen. */
+.header-row > a { transition: opacity .25s, visibility .25s; }
+html:has(#hero-brand):not(.hero-logo-passed) .header-row > a { opacity: 0; visibility: hidden; }
 .logo-word { fill: var(--logo-word); }
 .logo-sub { fill: var(--logo-sub); }
 .logo-rule { stroke: var(--logo-rule); }
