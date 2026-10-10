@@ -8,6 +8,8 @@ Booking website for Delish Town Car: flat-rate private car service between Seatt
 - Email alerts (Resend) go to the customer and the owner for every booking and cancellation.
 - Text alerts (Twilio) are built but switched off (`TEXTS_ENABLED` in `lib/config.ts`) until US texting registration is done.
 
+Car photos in `public/cars/` are representative stock photos from Pexels (free for commercial use): [sedan](https://www.pexels.com/photo/a-mercedes-benz-s-class-18369292/), [SUV](https://www.pexels.com/photo/black-cadillac-escalade-parked-under-trees-in-fire-zone-23319054/). Replace them with photos of the real cars when available.
+
 Prices, contact details and booking limits live in `lib/config.ts`. The refund rules are in `lib/policy.ts`.
 
 ## Run it locally

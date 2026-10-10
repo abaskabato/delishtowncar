@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
 import { Badge } from "./components/Logo";
-import VehicleArt from "./components/VehicleArt";
+import Image from "next/image";
 
 const FAQ: { q: string; a: string }[] = [
   {
@@ -61,8 +61,8 @@ export default function Home() {
               const v = VEHICLES[id];
               return (
                 <article key={id} className="vehicle-card">
-                  <div className="vehicle-art">
-                    <VehicleArt vehicle={id} />
+                  <div className="vehicle-photo">
+                    <Image src={v.photo} alt={v.photoAlt} fill sizes="(max-width: 760px) 100vw, 540px" />
                   </div>
                   <div className="vehicle-head">
                     <h3>{v.name}</h3>
@@ -75,6 +75,7 @@ export default function Home() {
               );
             })}
           </div>
+          <p className="photo-note">Photos show the type of vehicle; your car may differ.</p>
         </div>
       </section>
 

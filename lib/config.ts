@@ -14,18 +14,27 @@ export const BUSINESS = {
 
 export type VehicleId = "sedan" | "suv";
 
-export const VEHICLES: Record<VehicleId, { name: string; priceCents: number; maxPassengers: number; blurb: string }> = {
+// Photos are representative stock images (Pexels license), not Delish's own cars.
+// Sources are listed in README.md.
+export const VEHICLES: Record<
+  VehicleId,
+  { name: string; priceCents: number; maxPassengers: number; blurb: string; photo: string; photoAlt: string }
+> = {
   sedan: {
     name: "Sedan",
     priceCents: 11000,
     maxPassengers: 3,
     blurb: "A quiet, comfortable ride for one to three travelers.",
+    photo: "/cars/sedan.webp",
+    photoAlt: "Black luxury sedan",
   },
   suv: {
     name: "Luxury SUV",
     priceCents: 13500,
     maxPassengers: 6,
     blurb: "Room for families and groups of up to six, with space for more luggage.",
+    photo: "/cars/suv.webp",
+    photoAlt: "Black luxury SUV",
   },
 };
 
