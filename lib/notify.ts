@@ -1,7 +1,7 @@
 // Email through Resend and text messages through Twilio.
 // Each one is skipped (with a log line) when its keys aren't set, so a booking
 // never fails because a notification couldn't be sent.
-import { BUSINESS, DIRECTIONS, TEXTS_ENABLED, VEHICLES } from "./config.ts";
+import { BUSINESS, TEXTS_ENABLED, VEHICLES, routeFor } from "./config.ts";
 import type { Booking } from "./db.ts";
 import { formatMoney, formatPickup, toE164 } from "./policy.ts";
 
@@ -56,10 +56,10 @@ function ownerPhone(): string {
 }
 
 function tripRows(b: Booking): [string, string][] {
-  const dir = DIRECTIONS[b.direction];
+  const dir = routeFor(b.direction, b.location, b.unit);
   return [
     ["Pickup", formatPickup(b.pickup_at)],
-    ["From", dir.from + (b.direction === "to_airport" && b.unit ? `, unit ${b.unit}` : "")],
+    ["From", dir.from],
     ["To", dir.to],
     ["Vehicle", VEHICLES[b.vehicle].name],
     ["Passengers", String(b.passengers)],
@@ -93,7 +93,7 @@ function layout(title: string, intro: string, rows: [string, string][], footer: 
 export async function notifyBooked(b: Booking, manageUrl: string): Promise<void> {
   const when = formatPickup(b.pickup_at);
   const total = formatMoney(b.amount_cents);
-  const route = DIRECTIONS[b.direction].label;
+  const route = routeFor(b.direction, b.location).label;
 
   const customerHtml = layout(
     "Your ride is booked",
@@ -120,7 +120,7 @@ export async function notifyBooked(b: Booking, manageUrl: string): Promise<void>
 export async function notifyCancelled(b: Booking, refundCents: number): Promise<void> {
   const when = formatPickup(b.pickup_at);
   const refund = formatMoney(refundCents);
-  const route = DIRECTIONS[b.direction].label;
+  const route = routeFor(b.direction, b.location).label;
   const refundLine =
     refundCents > 0
       ? `We refunded <strong>${refund}</strong> to your card. It usually shows up in 5 to 10 business days.`

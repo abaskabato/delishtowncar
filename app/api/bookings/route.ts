@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { after, type NextRequest } from "next/server";
-import { DIRECTIONS, VEHICLES } from "@/lib/config";
+import { VEHICLES, routeFor } from "@/lib/config";
 import { db, type Booking } from "@/lib/db";
 import { notifyBooked } from "@/lib/notify";
 import { formatPickup } from "@/lib/policy";
@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
   const amountCents = VEHICLES[b.vehicle].priceCents;
   const sql = await db();
   const [booking] = await sql<Booking[]>`
-    insert into bookings (cancel_token, direction, vehicle, pickup_at, passengers, bags, flight, unit,
+    insert into bookings (cancel_token, direction, location, vehicle, pickup_at, passengers, bags, flight, unit,
                           name, phone, email, notes, sms_opt_in, amount_cents)
-    values (${randomBytes(24).toString("base64url")}, ${b.direction}, ${b.vehicle}, ${b.pickupAt},
+    values (${randomBytes(24).toString("base64url")}, ${b.direction}, ${b.location}, ${b.vehicle}, ${b.pickupAt},
             ${b.passengers}, ${b.bags}, ${b.flight}, ${b.unit}, ${b.name}, ${b.phone}, ${b.email},
             ${b.notes}, ${b.smsOptIn}, ${amountCents})
     returning *`;
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       amountCents,
       bookingId: booking.id,
       email: b.email,
-      note: `${VEHICLES[b.vehicle].name}, ${DIRECTIONS[b.direction].label}, ${formatPickup(b.pickupAt)}, ${b.name}`,
+      note: `${VEHICLES[b.vehicle].name}, ${routeFor(b.direction, b.location).label}, ${formatPickup(b.pickupAt)}, ${b.name}`,
     });
     const [confirmed] = await sql<Booking[]>`
       update bookings set status = 'confirmed', square_payment_id = ${paymentId}

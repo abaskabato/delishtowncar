@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { BUSINESS, DIRECTIONS, VEHICLES } from "@/lib/config";
+import { BUSINESS, VEHICLES, routeFor } from "@/lib/config";
 import { getBooking } from "@/lib/db";
 import { formatMoney, formatPickup, refundCents, refundPercent } from "@/lib/policy";
 import CancelButton from "./CancelButton";
@@ -25,7 +25,7 @@ async function BookingDetails({ params, searchParams }: PageProps<"/booking/[id]
     notFound();
   }
 
-  const dir = DIRECTIONS[booking.direction];
+  const dir = routeFor(booking.direction, booking.location, booking.unit);
   const percent = refundPercent(booking.pickup_at);
   const cancelled = booking.status === "cancelled";
 
@@ -50,7 +50,7 @@ async function BookingDetails({ params, searchParams }: PageProps<"/booking/[id]
         <div className="form-card">
           <dl className="summary">
             <div><dt>Pickup</dt><dd>{formatPickup(booking.pickup_at)}</dd></div>
-            <div><dt>From</dt><dd>{dir.from}{booking.direction === "to_airport" && booking.unit ? `, unit ${booking.unit}` : ""}</dd></div>
+            <div><dt>From</dt><dd>{dir.from}</dd></div>
             <div><dt>To</dt><dd>{dir.to}</dd></div>
             <div><dt>Vehicle</dt><dd>{VEHICLES[booking.vehicle].name}</dd></div>
             <div><dt>Passengers</dt><dd>{booking.passengers} · {booking.bags} large {booking.bags === 1 ? "suitcase" : "suitcases"}</dd></div>

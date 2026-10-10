@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
+import { BUSINESS, LOCATIONS, LOCATION_IDS, VEHICLES, mapsUrl, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
 import HeroLogoWatcher from "./components/HeroLogoWatcher";
 import { Badge } from "./components/Logo";
 import Image from "next/image";
 
 const FAQ: { q: string; a: string }[] = [
+  {
+    q: "Where do you pick up?",
+    a: `From ${LOCATIONS.seattle_house.name} (${LOCATIONS.seattle_house.address}) and ${LOCATIONS.rainier_square.name} (${LOCATIONS.rainier_square.address}). Choose your building when you book.`,
+  },
   {
     q: "Is the price really fixed?",
     a: "Yes. The Sedan is $110 and the Luxury SUV is $135 each way, whatever the time, day or traffic. You see the full price before you pay.",
@@ -41,7 +45,7 @@ export default function Home() {
             <div className="hero-brand" id="hero-brand">
               <Badge id="hero" size={150} />
               <HeroLogoWatcher targetId="hero-brand" />
-              <p className="pill">Seattle House ⇄ Sea-Tac Airport</p>
+              <p className="pill">Seattle House · Rainier Square ⇄ Sea-Tac</p>
             </div>
             <h1>Your private car to Sea-Tac, from your front door.</h1>
             <p className="lead">
@@ -57,6 +61,16 @@ export default function Home() {
           {/* Plain GET form so it works before any JavaScript loads; /book picks up the values. */}
           <form action="/book" className="quick-book" aria-label="Start a booking">
             <h2>Book a ride</h2>
+            <label className="field">
+              <span>Your building</span>
+              <select name="location" defaultValue="seattle_house">
+                {LOCATION_IDS.map((id) => (
+                  <option key={id} value={id}>
+                    {LOCATIONS[id].short} · {LOCATIONS[id].address.split(",")[0]}
+                  </option>
+                ))}
+              </select>
+            </label>
             <div className="segmented" role="radiogroup" aria-label="Direction">
               <label>
                 <input type="radio" name="direction" value="to_airport" defaultChecked />
@@ -90,6 +104,34 @@ export default function Home() {
             <button className="btn btn-primary btn-block" type="submit">Continue</button>
             <p className="quick-note">One flat price per ride, each way.</p>
           </form>
+        </div>
+      </section>
+
+      <section className="section section-tight" id="pickup-locations">
+        <div className="container">
+          <h2 className="section-title">Pickup locations</h2>
+          <p className="section-lead">We pick you up at your building and bring you back there from Sea-Tac. Same flat price from both.</p>
+          <div className="location-grid">
+            {LOCATION_IDS.map((id) => {
+              const loc = LOCATIONS[id];
+              return (
+                <article key={id} className="location-card">
+                  <span className="location-pin" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" /></svg>
+                  </span>
+                  <div className="location-body">
+                    <p className="location-area">{loc.area}</p>
+                    <h3>{loc.name}</h3>
+                    <p className="location-address">{loc.address}</p>
+                    <div className="location-actions">
+                      <Link href={`/book?location=${id}`} className="btn btn-primary btn-small">Book from here</Link>
+                      <a href={mapsUrl(loc.address)} target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-small">View map</a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 

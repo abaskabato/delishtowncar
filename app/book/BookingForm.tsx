@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { DIRECTIONS, TEXTS_ENABLED, type Direction, type VEHICLES, type VehicleId } from "@/lib/config";
+import { DIRECTIONS, LOCATIONS, LOCATION_IDS, TEXTS_ENABLED, routeFor, type Direction, type LocationId, type VEHICLES, type VehicleId } from "@/lib/config";
 
 type Vehicles = typeof VEHICLES;
 type SquareConfig = { applicationId: string; locationId: string; sandbox: boolean };
@@ -39,6 +39,7 @@ export default function BookingForm(props: {
   vehicles: Vehicles;
   initialVehicle: VehicleId;
   initialDirection: Direction;
+  initialLocation: LocationId;
   initialDate: string;
   initialTime: string;
   today: string;
@@ -52,6 +53,7 @@ export default function BookingForm(props: {
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({
     direction: props.initialDirection,
+    location: props.initialLocation,
     vehicle: props.initialVehicle,
     date: props.initialDate,
     time: props.initialTime,
@@ -143,7 +145,8 @@ export default function BookingForm(props: {
     }
   }
 
-  const route = DIRECTIONS[form.direction];
+  const route = routeFor(form.direction, form.location, form.unit.trim() || null);
+  const home = LOCATIONS[form.location];
 
   return (
     <div className="booking">
@@ -157,6 +160,19 @@ export default function BookingForm(props: {
 
       {step === 0 && (
         <form onSubmit={next} className="form-card">
+          <fieldset>
+            <legend>Your building</legend>
+            <div className="choice-row">
+              {LOCATION_IDS.map((id) => (
+                <label key={id} className={`choice ${form.location === id ? "selected" : ""}`}>
+                  <input type="radio" name="location" id={`location-${id}`} checked={form.location === id} onChange={() => set("location", id)} />
+                  <span className="choice-title">{LOCATIONS[id].name}</span>
+                  <span className="choice-meta">{LOCATIONS[id].address}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
           <fieldset>
             <legend>Direction</legend>
             <div className="choice-row">
@@ -196,7 +212,7 @@ export default function BookingForm(props: {
               <input id="time" type="time" required value={form.time} onChange={(e) => set("time", e.target.value)} />
             </label>
           </div>
-          <p className="hint">Seattle time. {toAirport ? "This is when your driver picks you up at Seattle House, 2340 6th Ave." : "Your driver tracks your flight and meets you after you land."}</p>
+          <p className="hint">Seattle time. {toAirport ? `This is when your driver picks you up at ${home.short}, ${home.address.split(",")[0]}.` : "Your driver tracks your flight and meets you after you land."}</p>
 
           <div className="field-row">
             <label className="field">
@@ -271,6 +287,7 @@ export default function BookingForm(props: {
         <form onSubmit={pay} className="form-card">
           <dl className="summary">
             <div><dt>Trip</dt><dd>{route.label}</dd></div>
+            <div><dt>{form.direction === "to_airport" ? "Pickup at" : "Drop-off at"}</dt><dd>{form.direction === "to_airport" ? route.from : route.to}</dd></div>
             <div><dt>Pickup</dt><dd>{form.date} at {form.time} (Seattle time)</dd></div>
             <div><dt>Vehicle</dt><dd>{vehicle.name}</dd></div>
             <div><dt>Passengers</dt><dd>{form.passengers} · {form.bags} large {form.bags === 1 ? "suitcase" : "suitcases"}</dd></div>

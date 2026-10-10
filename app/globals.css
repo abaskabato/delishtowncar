@@ -234,6 +234,17 @@ html:has(#hero-brand):not(.hero-logo-passed) .theme-toggle { background: rgba(25
 .section-title { font-size: clamp(1.8rem, 3.4vw, 2.4rem); margin-bottom: 32px; }
 .page-title { font-size: clamp(1.9rem, 4vw, 2.6rem); }
 
+.section-tight { padding-block: 56px 8px; }
+.section-lead { color: var(--muted); max-width: 60ch; margin: -18px 0 24px; }
+.location-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.location-card { display: flex; gap: 16px; align-items: flex-start; padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+.location-pin { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--primary-soft); color: var(--primary); }
+.location-body { display: grid; gap: 4px; min-width: 0; }
+.location-area { font-size: .8rem; font-weight: 600; color: var(--primary); }
+.location-body h3 { font-size: 1.15rem; letter-spacing: -.01em; }
+.location-address { color: var(--muted); }
+.location-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.footer-locations { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 2px; }
 .vehicle-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .vehicle-card {
   border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); overflow: hidden;
@@ -331,7 +342,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 }
 @media (max-width: 760px) {
   .hero { padding-block: 40px 48px; padding-top: calc(40px + 63px); }
-  .vehicle-grid, .steps, .choice-row, .field-row { grid-template-columns: minmax(0, 1fr); }
+  .vehicle-grid, .location-grid, .steps, .choice-row, .field-row { grid-template-columns: minmax(0, 1fr); }
   .header-phone { display: none; }
   .header-row > a svg { height: 42px; }
   .hero-brand svg { width: 112px; height: 112px; }

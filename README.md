@@ -1,6 +1,6 @@
 # Delish Town Car
 
-Booking website for Delish Town Car: flat-rate private car service between Seattle House and Sea-Tac Airport.
+Booking website for Delish Town Car: flat-rate private car service between Sea-Tac Airport and two Seattle apartment buildings, Seattle House and The Residences @ Rainier Square (`LOCATIONS` in `lib/config.ts`).
 
 - **Sedan** $110, up to 3 passengers · **Luxury SUV** $135, up to 6 passengers (each way)
 - Customers pay by card through **Square** when they book.

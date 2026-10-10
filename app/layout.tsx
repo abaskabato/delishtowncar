@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, Inter, Pinyon_Script, Plus_Jakarta_Sans } from "next/font/google";
 import Link from "next/link";
-import { BUSINESS } from "@/lib/config";
+import { BUSINESS, LOCATIONS, LOCATION_IDS } from "@/lib/config";
 import { Badge, HeaderLogo } from "./components/Logo";
 import TawkChat from "./components/TawkChat";
 import ThemeToggle from "./components/ThemeToggle";
@@ -14,8 +14,8 @@ const heading = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-headin
 const body = Inter({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "Delish Town Car | Seattle House to Sea-Tac",
-  description: "Flat-rate private car between Seattle House and Sea-Tac Airport. Sedan $110, Luxury SUV $135. Book and pay online.",
+  title: "Delish Town Car | Seattle House & Rainier Square to Sea-Tac",
+  description: "Flat-rate private car between Seattle House or Rainier Square and Sea-Tac Airport. Sedan $110, Luxury SUV $135. Book and pay online.",
 };
 
 const THEME_SCRIPT = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
@@ -47,7 +47,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Badge id="footer" size={96} />
               <div>
                 <div className="footer-name">{BUSINESS.name}</div>
-                <p>Private car service between {BUSINESS.home} ({BUSINESS.homeAddress}) and {BUSINESS.airport}.</p>
+                <p>Private car service to and from {BUSINESS.airport}.</p>
+                <ul className="footer-locations">
+                  {LOCATION_IDS.map((id) => (
+                    <li key={id}>
+                      {LOCATIONS[id].name}, {LOCATIONS[id].address}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
             <div className="footer-contact">

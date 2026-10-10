@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
+import { BUSINESS, LOCATIONS, VEHICLES, type LocationId, type VehicleId } from "@/lib/config";
 import BookingForm from "./BookingForm";
 
 export const metadata: Metadata = { title: "Book a ride | Delish Town Car" };
@@ -11,7 +11,7 @@ export default function BookPage({ searchParams }: PageProps<"/book">) {
     <section className="section">
       <div className="container narrow">
         <p className="eyebrow">Book a ride</p>
-        <h1 className="page-title">Seattle House ⇄ Sea-Tac</h1>
+        <h1 className="page-title">Your ride to and from Sea-Tac</h1>
         <Suspense fallback={<div className="form-card hint">Loading the booking form…</div>}>
           <Form searchParams={searchParams} />
         </Suspense>
@@ -22,7 +22,7 @@ export default function BookPage({ searchParams }: PageProps<"/book">) {
 
 async function Form({ searchParams }: Pick<PageProps<"/book">, "searchParams">) {
   await connection(); // render per request so "today" is current
-  const { vehicle, direction, date, time } = await searchParams;
+  const { vehicle, direction, date, time, location } = await searchParams;
   const initialVehicle: VehicleId = vehicle === "suv" ? "suv" : "sedan";
 
   const square = {
@@ -37,6 +37,7 @@ async function Form({ searchParams }: Pick<PageProps<"/book">, "searchParams">) 
       vehicles={VEHICLES}
       initialVehicle={initialVehicle}
       initialDirection={direction === "from_airport" ? "from_airport" : "to_airport"}
+      initialLocation={typeof location === "string" && Object.hasOwn(LOCATIONS, location) ? (location as LocationId) : "seattle_house"}
       initialDate={typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : ""}
       initialTime={typeof time === "string" && /^\d{2}:\d{2}$/.test(time) ? time : ""}
       today={today}

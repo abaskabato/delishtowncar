@@ -1,12 +1,13 @@
 import postgres from "postgres";
 import { SCHEMA } from "./schema.ts";
-import type { Direction, VehicleId } from "./config.ts";
+import type { Direction, LocationId, VehicleId } from "./config.ts";
 
 export type Booking = {
   id: string;
   cancel_token: string;
   status: "pending" | "confirmed" | "cancelled" | "payment_failed";
   direction: Direction;
+  location: LocationId;
   vehicle: VehicleId;
   pickup_at: Date;
   passengers: number;

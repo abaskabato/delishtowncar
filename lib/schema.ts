@@ -26,4 +26,7 @@ create table if not exists bookings (
 );
 
 create index if not exists bookings_pickup_at_idx on bookings (pickup_at);
+
+-- Added when Rainier Square became a second pickup building.
+alter table bookings add column if not exists location text not null default 'seattle_house';
 `;

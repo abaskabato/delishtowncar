@@ -1,8 +1,9 @@
-import { DIRECTIONS, TEXTS_ENABLED, MAX_ADVANCE_DAYS, MIN_LEAD_HOURS, VEHICLES, type Direction, type VehicleId } from "./config.ts";
+import { DIRECTIONS, LOCATIONS, TEXTS_ENABLED, MAX_ADVANCE_DAYS, MIN_LEAD_HOURS, VEHICLES, type Direction, type LocationId, type VehicleId } from "./config.ts";
 import { seattleTimeToDate, toE164 } from "./policy.ts";
 
 export type BookingInput = {
   direction: Direction;
+  location: LocationId;
   vehicle: VehicleId;
   pickupAt: Date;
   passengers: number;
@@ -22,10 +23,13 @@ const str = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice
 // message that tells the customer what to fix.
 export function validateBooking(raw: Record<string, unknown>, now: Date = new Date()): { ok: true; value: BookingInput } | { ok: false; error: string } {
   const direction = raw.direction as Direction;
-  if (!(direction in DIRECTIONS)) return { ok: false, error: "Choose a trip direction." };
+  if (!Object.hasOwn(DIRECTIONS, direction)) return { ok: false, error: "Choose a trip direction." };
+
+  const location = raw.location as LocationId;
+  if (typeof location !== "string" || !Object.hasOwn(LOCATIONS, location)) return { ok: false, error: "Choose your pickup building." };
 
   const vehicle = raw.vehicle as VehicleId;
-  if (!(vehicle in VEHICLES)) return { ok: false, error: "Choose a vehicle." };
+  if (!Object.hasOwn(VEHICLES, vehicle)) return { ok: false, error: "Choose a vehicle." };
   const max = VEHICLES[vehicle].maxPassengers;
 
   const pickupAt = seattleTimeToDate(str(raw.date, 10), str(raw.time, 5));
@@ -58,6 +62,7 @@ export function validateBooking(raw: Record<string, unknown>, now: Date = new Da
     ok: true,
     value: {
       direction,
+      location,
       vehicle,
       pickupAt,
       passengers,

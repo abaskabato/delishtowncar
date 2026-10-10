@@ -5,9 +5,6 @@ export const BUSINESS = {
   email: "delish86@gmail.com",
   phone: "(202) 409-9469",
   phoneE164: "+12024099469",
-  home: "Seattle House",
-  // https://www.seattlehouse.com/ (Denny Triangle)
-  homeAddress: "2340 6th Ave, Seattle, WA 98121",
   airport: "Sea-Tac Airport",
   timeZone: "America/Los_Angeles",
 };
@@ -40,12 +37,49 @@ export const VEHICLES: Record<
 
 export type Direction = "to_airport" | "from_airport";
 
-const HOME_STOP = `${BUSINESS.home}, ${BUSINESS.homeAddress}`;
-
-export const DIRECTIONS: Record<Direction, { label: string; from: string; to: string }> = {
-  to_airport: { label: "Seattle House to Sea-Tac", from: HOME_STOP, to: BUSINESS.airport },
-  from_airport: { label: "Sea-Tac to Seattle House", from: BUSINESS.airport, to: HOME_STOP },
+export const DIRECTIONS: Record<Direction, { label: string }> = {
+  to_airport: { label: "To Sea-Tac Airport" },
+  from_airport: { label: "From Sea-Tac Airport" },
 };
+
+// Apartment buildings Delish picks up from and drops off at. Same flat prices for each.
+export type LocationId = "seattle_house" | "rainier_square";
+
+export const LOCATIONS: Record<LocationId, { name: string; short: string; address: string; area: string; website: string }> = {
+  seattle_house: {
+    name: "Seattle House",
+    short: "Seattle House",
+    address: "2340 6th Ave, Seattle, WA 98121",
+    area: "Denny Triangle",
+    website: "https://www.seattlehouse.com/",
+  },
+  rainier_square: {
+    name: "The Residences @ Rainier Square",
+    short: "Rainier Square",
+    address: "1340 4th Ave, Seattle, WA 98101",
+    area: "Downtown Seattle",
+    website: "https://liverainiersquare.com/",
+  },
+};
+
+export const LOCATION_IDS = Object.keys(LOCATIONS) as LocationId[];
+
+export function mapsUrl(address: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+}
+
+// Where a ride starts and ends, written out for pages and emails.
+export function routeFor(
+  direction: Direction,
+  location: LocationId,
+  unit?: string | null,
+): { label: string; from: string; to: string } {
+  const home = LOCATIONS[location];
+  const stop = `${home.name}, ${home.address}${unit ? `, unit ${unit}` : ""}`;
+  return direction === "to_airport"
+    ? { label: `${home.short} to Sea-Tac`, from: stop, to: BUSINESS.airport }
+    : { label: `Sea-Tac to ${home.short}`, from: BUSINESS.airport, to: stop };
+}
 
 // Text messages (Twilio) are off for now; turn on once US texting registration is approved.
 export const TEXTS_ENABLED = false;
