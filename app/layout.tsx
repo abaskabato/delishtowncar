@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Cinzel, Jost, Pinyon_Script } from "next/font/google";
+import { Cinzel, Inter, Pinyon_Script, Plus_Jakarta_Sans } from "next/font/google";
 import Link from "next/link";
 import { BUSINESS } from "@/lib/config";
 import { HeaderLogo } from "./components/Logo";
 import ThemeToggle from "./components/ThemeToggle";
 import "./globals.css";
 
-const display = Cinzel({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display" });
+// Cinzel and Pinyon Script are only for the logo; the site uses modern sans fonts.
+const logo = Cinzel({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-logo" });
 const script = Pinyon_Script({ subsets: ["latin"], weight: "400", variable: "--font-script" });
-const body = Jost({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--font-body" });
+const heading = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-heading" });
+const body = Inter({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
   title: "Delish Town Car | Seattle House to Sea-Tac",
@@ -19,7 +21,7 @@ const THEME_SCRIPT = `try{var t=localStorage.getItem("theme");if(t==="light"||t=
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${script.variable} ${body.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${logo.variable} ${script.variable} ${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply a saved light/night choice before first paint. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />

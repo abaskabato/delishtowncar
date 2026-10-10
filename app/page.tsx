@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
-import { Badge } from "./components/Logo";
 import Image from "next/image";
 
 const FAQ: { q: string; a: string }[] = [
@@ -37,19 +36,54 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Seattle House ⇄ Sea-Tac Airport</p>
-            <h1>Your private car to the airport, from your front door.</h1>
+            <p className="pill">Seattle House ⇄ Sea-Tac Airport</p>
+            <h1>Your private car to Sea-Tac, from your front door.</h1>
             <p className="lead">
-              A professional driver, a clean luxury vehicle and one flat price each way. Book in a few minutes and pay online.
+              A professional driver, a clean black luxury car and one flat price each way. Book in a minute, pay online.
             </p>
-            <div className="hero-actions">
-              <Link href="/book" className="btn btn-light">Book your ride</Link>
-              <span className="hero-from">Sedan from <strong>{formatMoney(VEHICLES.sedan.priceCents)}</strong></span>
+            <ul className="hero-points">
+              <li>Flat rate, no surge pricing</li>
+              <li>Flight tracking on airport pickups</li>
+              <li>Full refund up to 24 hours before</li>
+            </ul>
+          </div>
+
+          {/* Plain GET form so it works before any JavaScript loads; /book picks up the values. */}
+          <form action="/book" className="quick-book" aria-label="Start a booking">
+            <h2>Book a ride</h2>
+            <div className="segmented" role="radiogroup" aria-label="Direction">
+              <label>
+                <input type="radio" name="direction" value="to_airport" defaultChecked />
+                <span>To Sea-Tac</span>
+              </label>
+              <label>
+                <input type="radio" name="direction" value="from_airport" />
+                <span>From Sea-Tac</span>
+              </label>
             </div>
-          </div>
-          <div className="hero-badge">
-            <Badge id="hero" size={360} />
-          </div>
+            <div className="quick-row">
+              <label className="field">
+                <span>Date</span>
+                <input type="date" name="date" />
+              </label>
+              <label className="field">
+                <span>Time</span>
+                <input type="time" name="time" />
+              </label>
+            </div>
+            <label className="field">
+              <span>Car</span>
+              <select name="vehicle" defaultValue="sedan">
+                {(Object.keys(VEHICLES) as VehicleId[]).map((id) => (
+                  <option key={id} value={id}>
+                    {VEHICLES[id].name} · up to {VEHICLES[id].maxPassengers} · {formatMoney(VEHICLES[id].priceCents)}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button className="btn btn-primary btn-block" type="submit">Continue</button>
+            <p className="quick-note">One flat price per ride, each way.</p>
+          </form>
         </div>
       </section>
 

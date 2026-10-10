@@ -71,16 +71,16 @@ export function Badge({ id, size = 200, title = "Delish Town Car" }: { id: strin
       <Ring gold={gold} />
       <circle r="74" fill="none" stroke={gold} strokeWidth=".6" />
       <circle r="71" fill="#0d0b0a" stroke={gold} strokeWidth="1.4" />
-      <text fontFamily="var(--font-display), Georgia, serif" fontSize="7.2" letterSpacing="3.2" fill="#c9a24a" textAnchor="middle">
+      <text fontFamily="var(--font-logo), Georgia, serif" fontSize="7.2" letterSpacing="3.2" fill="#c9a24a" textAnchor="middle">
         <textPath href={`#${id}-top`} startOffset="50%">SEATTLE</textPath>
       </text>
-      <text fontFamily="var(--font-display), Georgia, serif" fontSize="7.2" letterSpacing="3.2" fill="#c9a24a" textAnchor="middle">
+      <text fontFamily="var(--font-logo), Georgia, serif" fontSize="7.2" letterSpacing="3.2" fill="#c9a24a" textAnchor="middle">
         <textPath href={`#${id}-bot`} startOffset="50%">SEA-TAC</textPath>
       </text>
       <Sedan fill={gold} hub="#0d0b0a" x={-46} y={-40} width={92} />
       <text y="18" fontFamily="var(--font-script), cursive" fontSize="34" fill={gold} textAnchor="middle">Delish</text>
       <line x1="-34" y1="28" x2="34" y2="28" stroke="#8e1b26" strokeWidth="1.2" />
-      <text y="40" fontFamily="var(--font-display), Georgia, serif" fontWeight="600" fontSize="8.6" letterSpacing="4" fill="#e6cc86" textAnchor="middle">
+      <text y="40" fontFamily="var(--font-logo), Georgia, serif" fontWeight="600" fontSize="8.6" letterSpacing="4" fill="#e6cc86" textAnchor="middle">
         TOWN CAR
       </text>
     </svg>
@@ -106,11 +106,11 @@ export function HeaderLogo() {
         <text y="30" fontFamily="var(--font-script), cursive" fontSize="40" fill={gold} textAnchor="middle">Delish</text>
       </g>
       {/* Wordmark colors come from the theme (see .logo-word in globals.css). */}
-      <text className="logo-word" x="104" y="50" fontFamily="var(--font-display), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7">
+      <text className="logo-word" x="104" y="50" fontFamily="var(--font-logo), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7">
         DELISH
       </text>
       <line className="logo-rule" x1="106" y1="60" x2="372" y2="60" strokeWidth="1.2" />
-      <text className="logo-sub" x="106" y="80" fontFamily="var(--font-display), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2">
+      <text className="logo-sub" x="106" y="80" fontFamily="var(--font-logo), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2">
         TOWN CAR · SEATTLE
       </text>
     </svg>

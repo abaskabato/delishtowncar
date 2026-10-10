@@ -22,7 +22,7 @@ export default function BookPage({ searchParams }: PageProps<"/book">) {
 
 async function Form({ searchParams }: Pick<PageProps<"/book">, "searchParams">) {
   await connection(); // render per request so "today" is current
-  const { vehicle, direction } = await searchParams;
+  const { vehicle, direction, date, time } = await searchParams;
   const initialVehicle: VehicleId = vehicle === "suv" ? "suv" : "sedan";
 
   const square = {
@@ -37,6 +37,8 @@ async function Form({ searchParams }: Pick<PageProps<"/book">, "searchParams">) 
       vehicles={VEHICLES}
       initialVehicle={initialVehicle}
       initialDirection={direction === "from_airport" ? "from_airport" : "to_airport"}
+      initialDate={typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : ""}
+      initialTime={typeof time === "string" && /^\d{2}:\d{2}$/.test(time) ? time : ""}
       today={today}
       square={square}
       phone={BUSINESS.phone}

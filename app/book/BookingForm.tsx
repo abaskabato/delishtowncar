@@ -39,6 +39,8 @@ export default function BookingForm(props: {
   vehicles: Vehicles;
   initialVehicle: VehicleId;
   initialDirection: Direction;
+  initialDate: string;
+  initialTime: string;
   today: string;
   square: SquareConfig;
   phone: string;
@@ -51,8 +53,8 @@ export default function BookingForm(props: {
   const [form, setForm] = useState({
     direction: props.initialDirection,
     vehicle: props.initialVehicle,
-    date: "",
-    time: "",
+    date: props.initialDate,
+    time: props.initialTime,
     passengers: 1,
     bags: 1,
     flight: "",
