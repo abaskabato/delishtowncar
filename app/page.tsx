@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BUSINESS, VEHICLES, type VehicleId } from "@/lib/config";
 import { formatMoney } from "@/lib/policy";
+import { Badge } from "./components/Logo";
 import Image from "next/image";
 
 const FAQ: { q: string; a: string }[] = [
@@ -36,7 +37,10 @@ export default function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="pill">Seattle House ⇄ Sea-Tac Airport</p>
+            <div className="hero-brand">
+              <Badge id="hero" size={150} />
+              <p className="pill">Seattle House ⇄ Sea-Tac Airport</p>
+            </div>
             <h1>Your private car to Sea-Tac, from your front door.</h1>
             <p className="lead">
               A professional driver, a clean black luxury car and one flat price each way. Book in a minute, pay online.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Inter, Pinyon_Script, Plus_Jakarta_Sans } from "next/font/google";
 import Link from "next/link";
 import { BUSINESS } from "@/lib/config";
-import { HeaderLogo } from "./components/Logo";
+import { Badge, HeaderLogo } from "./components/Logo";
 import TawkChat from "./components/TawkChat";
 import ThemeToggle from "./components/ThemeToggle";
 import "./globals.css";
@@ -43,9 +43,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main>{children}</main>
         <footer className="site-footer">
           <div className="container footer-row">
-            <div>
-              <div className="footer-name">{BUSINESS.name}</div>
-              <p>Private car service between {BUSINESS.home} ({BUSINESS.homeAddress}) and {BUSINESS.airport}.</p>
+            <div className="footer-brand">
+              <Badge id="footer" size={96} />
+              <div>
+                <div className="footer-name">{BUSINESS.name}</div>
+                <p>Private car service between {BUSINESS.home} ({BUSINESS.homeAddress}) and {BUSINESS.airport}.</p>
+              </div>
             </div>
             <div className="footer-contact">
               <a href={`tel:${BUSINESS.phoneE164}`}>{BUSINESS.phone}</a>

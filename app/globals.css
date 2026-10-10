@@ -152,6 +152,8 @@ p { margin: 0; }
 
 .site-footer { border-top: 1px solid var(--line); margin-top: 24px; padding-block: 40px; color: var(--muted); font-size: .92rem; }
 .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+.footer-brand { display: flex; align-items: center; gap: 18px; }
+.footer-brand svg { flex: none; }
 .footer-name { font-family: var(--font-heading), sans-serif; font-weight: 700; color: var(--text); font-size: 1.05rem; margin-bottom: 6px; }
 .footer-contact { display: grid; gap: 4px; }
 .footer-contact a { color: var(--text); text-decoration: none; }
@@ -172,7 +174,7 @@ p { margin: 0; }
 .btn-outline { background: var(--surface); border-color: var(--line); color: var(--text); }
 .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
 .btn-danger { background: var(--danger); color: var(--on-danger); }
-.btn-small { padding: 9px 16px; font-size: .9rem; border-radius: 10px; }
+.btn-small { white-space: nowrap; padding: 9px 16px; font-size: .9rem; border-radius: 10px; }
 .btn-block { width: 100%; }
 .button-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
 
@@ -188,6 +190,8 @@ p { margin: 0; }
 .hero-copy { display: grid; gap: 22px; }
 .hero h1 { font-size: clamp(2.3rem, 5.2vw, 3.8rem); }
 .hero .lead { color: var(--on-hero-muted); }
+.hero-brand { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.hero-brand svg { flex: none; filter: drop-shadow(0 14px 28px rgba(0, 0, 0, .55)); }
 .hero-points { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; color: var(--on-hero); font-weight: 500; }
 .hero-points li { display: flex; align-items: center; gap: 10px; }
 .hero-points li::before {
@@ -313,8 +317,11 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
   .hero { padding-block: 40px 48px; }
   .vehicle-grid, .steps, .choice-row, .field-row { grid-template-columns: minmax(0, 1fr); }
   .header-phone { display: none; }
-  .header-row > a svg { height: 38px; }
-  .header-nav { gap: 10px; }
+  .header-row > a svg { height: 42px; }
+  .hero-brand svg { width: 112px; height: 112px; }
+  .header-nav { gap: 8px; }
+  .header-row { gap: 10px; }
+  .header-row > a { min-width: 0; }
   .form-card, .quick-book { padding: 20px; }
   .vehicle-card > :not(.vehicle-photo) { margin-inline: 20px; }
   .summary > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }

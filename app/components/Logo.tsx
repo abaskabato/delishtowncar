@@ -92,7 +92,7 @@ export function HeaderLogo() {
   const id = "hdr";
   const gold = `url(#${id}-gold)`;
   return (
-    <svg viewBox="0 0 380 92" height="46" role="img" aria-label="Delish Town Car">
+    <svg viewBox="0 0 380 92" height="60" role="img" aria-label="Delish Town Car">
       <defs>
         <GoldGradient id={`${id}-gold`} />
       </defs>
