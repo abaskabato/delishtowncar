@@ -190,7 +190,7 @@ export default function BookingForm(props: {
               <input id="time" type="time" required value={form.time} onChange={(e) => set("time", e.target.value)} />
             </label>
           </div>
-          <p className="hint">Seattle time. {toAirport ? "This is when your driver picks you up at Seattle House." : "Your driver tracks your flight and meets you after you land."}</p>
+          <p className="hint">Seattle time. {toAirport ? "This is when your driver picks you up at Seattle House, 2340 6th Ave." : "Your driver tracks your flight and meets you after you land."}</p>
 
           <div className="field-row">
             <label className="field">

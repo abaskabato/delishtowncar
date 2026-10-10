@@ -6,8 +6,8 @@ export const BUSINESS = {
   phone: "(202) 409-9469",
   phoneE164: "+12024099469",
   home: "Seattle House",
-  // TODO: confirm the street address and where drivers meet residents.
-  homeAddress: process.env.NEXT_PUBLIC_SEATTLE_HOUSE_ADDRESS ?? "Seattle House apartments, Seattle, WA",
+  // https://www.seattlehouse.com/ (Denny Triangle)
+  homeAddress: "2340 6th Ave, Seattle, WA 98121",
   airport: "Sea-Tac Airport",
   timeZone: "America/Los_Angeles",
 };
@@ -31,9 +31,11 @@ export const VEHICLES: Record<VehicleId, { name: string; priceCents: number; max
 
 export type Direction = "to_airport" | "from_airport";
 
+const HOME_STOP = `${BUSINESS.home}, ${BUSINESS.homeAddress}`;
+
 export const DIRECTIONS: Record<Direction, { label: string; from: string; to: string }> = {
-  to_airport: { label: "Seattle House to Sea-Tac", from: BUSINESS.home, to: BUSINESS.airport },
-  from_airport: { label: "Sea-Tac to Seattle House", from: BUSINESS.airport, to: BUSINESS.home },
+  to_airport: { label: "Seattle House to Sea-Tac", from: HOME_STOP, to: BUSINESS.airport },
+  from_airport: { label: "Sea-Tac to Seattle House", from: BUSINESS.airport, to: HOME_STOP },
 };
 
 // Text messages (Twilio) are off for now; turn on once US texting registration is approved.

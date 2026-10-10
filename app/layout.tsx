@@ -34,7 +34,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <div className="container footer-row">
             <div>
               <div className="footer-name">{BUSINESS.name}</div>
-              <p>Private car service between {BUSINESS.home} and {BUSINESS.airport}.</p>
+              <p>Private car service between {BUSINESS.home} ({BUSINESS.homeAddress}) and {BUSINESS.airport}.</p>
             </div>
             <div className="footer-contact">
               <a href={`tel:${BUSINESS.phoneE164}`}>{BUSINESS.phone}</a>
