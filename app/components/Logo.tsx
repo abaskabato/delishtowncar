@@ -96,23 +96,28 @@ export function HeaderLogo() {
       <defs>
         <GoldGradient id={`${id}-gold`} />
       </defs>
-      <g transform="translate(46 46) scale(.44)">
-        <circle r="99" fill="#0d0b0a" />
-        <circle r="97" fill="none" stroke={gold} strokeWidth="2.4" />
-        <circle r="92" fill="none" stroke={gold} strokeWidth="1" />
-        <Ring gold={gold} />
-        <circle r="71" fill="#0d0b0a" stroke={gold} strokeWidth="2" />
-        <Sedan fill={gold} hub="#0d0b0a" x={-50} y={-36} width={100} />
-        <text y="30" fontFamily="var(--font-script), cursive" fontSize="40" fill={gold} textAnchor="middle">Delish</text>
+      {/* On the home page the mark hides and the wordmark slides left while the hero badge is in view. */}
+      <g className="logo-mark">
+        <g transform="translate(46 46) scale(.44)">
+          <circle r="99" fill="#0d0b0a" />
+          <circle r="97" fill="none" stroke={gold} strokeWidth="2.4" />
+          <circle r="92" fill="none" stroke={gold} strokeWidth="1" />
+          <Ring gold={gold} />
+          <circle r="71" fill="#0d0b0a" stroke={gold} strokeWidth="2" />
+          <Sedan fill={gold} hub="#0d0b0a" x={-50} y={-36} width={100} />
+          <text y="30" fontFamily="var(--font-script), cursive" fontSize="40" fill={gold} textAnchor="middle">Delish</text>
+        </g>
       </g>
       {/* Wordmark colors come from the theme (see .logo-word in globals.css). */}
-      <text className="logo-word" x="104" y="50" fontFamily="var(--font-logo), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7">
-        DELISH
-      </text>
-      <line className="logo-rule" x1="106" y1="60" x2="372" y2="60" strokeWidth="1.2" />
-      <text className="logo-sub" x="106" y="80" fontFamily="var(--font-logo), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2">
-        TOWN CAR · SEATTLE
-      </text>
+      <g className="logo-text">
+        <text className="logo-word" x="104" y="50" fontFamily="var(--font-logo), Georgia, serif" fontWeight="700" fontSize="38" letterSpacing="7">
+          DELISH
+        </text>
+        <line className="logo-rule" x1="106" y1="60" x2="372" y2="60" strokeWidth="1.2" />
+        <text className="logo-sub" x="106" y="80" fontFamily="var(--font-logo), Georgia, serif" fontWeight="500" fontSize="12.5" letterSpacing="7.2">
+          TOWN CAR · SEATTLE
+        </text>
+      </g>
     </svg>
   );
 }

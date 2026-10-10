@@ -131,9 +131,21 @@ p { margin: 0; }
 .site-header { border-bottom: 1px solid var(--line); background: var(--header-bg); position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.4) blur(12px); }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 10px; }
 .header-row > a svg { display: block; width: auto; }
-/* Home page: hide the header logo while the big hero badge is on screen. */
-.header-row > a { transition: opacity .25s, visibility .25s; }
-html:has(#hero-brand):not(.hero-logo-passed) .header-row > a { opacity: 0; visibility: hidden; }
+/* Home page: the header floats over the dark hero. While the hero badge is in
+   view the header is see-through and shows only the gold wordmark; once the badge
+   scrolls away the header turns solid and the small badge slides back in. */
+.site-header { transition: background-color .3s, border-color .3s; }
+.logo-mark { transition: opacity .3s; }
+.logo-text { transition: transform .35s ease; }
+.header-phone, .theme-toggle { transition: color .3s, background-color .3s, border-color .3s; }
+html:has(#hero-brand) .site-header { position: fixed; left: 0; right: 0; top: 0; }
+html:has(#hero-brand):not(.hero-logo-passed) .site-header { background: transparent; border-bottom-color: transparent; backdrop-filter: none; }
+html:has(#hero-brand):not(.hero-logo-passed) .logo-mark { opacity: 0; }
+html:has(#hero-brand):not(.hero-logo-passed) .logo-text { transform: translateX(-100px); }
+html:has(#hero-brand):not(.hero-logo-passed) .logo-word { fill: url(#hdr-gold); }
+html:has(#hero-brand):not(.hero-logo-passed) .logo-sub { fill: #e6cc86; }
+html:has(#hero-brand):not(.hero-logo-passed) .header-phone { color: #ffffff; }
+html:has(#hero-brand):not(.hero-logo-passed) .theme-toggle { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .25); color: #ffffff; }
 .logo-word { fill: var(--logo-word); }
 .logo-sub { fill: var(--logo-sub); }
 .logo-rule { stroke: var(--logo-rule); }
@@ -184,6 +196,7 @@ html:has(#hero-brand):not(.hero-logo-passed) .header-row > a { opacity: 0; visib
 /* Home hero: headline + quick-book card */
 .hero {
   padding-block: 72px 80px; color: var(--on-hero);
+  padding-top: calc(72px + 81px); /* clears the fixed header */
   background:
     radial-gradient(ellipse at 85% 10%, var(--hero-glow), transparent 55%),
     radial-gradient(ellipse at 0% 100%, rgba(91, 140, 255, .18), transparent 50%),
@@ -317,7 +330,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
 }
 @media (max-width: 760px) {
-  .hero { padding-block: 40px 48px; }
+  .hero { padding-block: 40px 48px; padding-top: calc(40px + 63px); }
   .vehicle-grid, .steps, .choice-row, .field-row { grid-template-columns: minmax(0, 1fr); }
   .header-phone { display: none; }
   .header-row > a svg { height: 42px; }
