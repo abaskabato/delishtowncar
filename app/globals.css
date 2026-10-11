@@ -134,11 +134,13 @@ p { margin: 0; }
 /* Home page: the header floats over the dark hero. While the hero badge is in
    view the header is see-through and shows only the gold wordmark; once the badge
    scrolls away the header turns solid and the small badge slides back in. */
-.site-header { transition: background-color .3s, border-color .3s; }
+.site-header { transition: border-color .3s; } /* background switches instantly so nothing shows through mid-fade */
 .logo-mark { transition: opacity .3s; }
 .logo-text { transition: transform .35s ease; }
 .header-phone, .theme-toggle { transition: color .3s, background-color .3s, border-color .3s; }
 html:has(#hero-brand) .site-header { position: fixed; left: 0; right: 0; top: 0; }
+/* Fully opaque once solid, so the big badge can't show through as it scrolls under. */
+html:has(#hero-brand).hero-logo-passed .site-header { background: var(--bg); backdrop-filter: none; }
 html:has(#hero-brand):not(.hero-logo-passed) .site-header { background: transparent; border-bottom-color: transparent; backdrop-filter: none; }
 html:has(#hero-brand):not(.hero-logo-passed) .logo-mark { opacity: 0; }
 html:has(#hero-brand):not(.hero-logo-passed) .logo-text { transform: translateX(-100px); }
